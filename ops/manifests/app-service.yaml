@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: maintenance
+  name: app-service
+spec:
+  ports:
+    - name: "web"
+      port: 80
+      targetPort: 80
+  selector:
+    app: app-deployment
+  type: ClusterIP

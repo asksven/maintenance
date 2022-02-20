@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: maintenance
+  name: canary-service
+spec:
+  ports:
+    - name: "web"
+      port: 80
+      targetPort: 80
+  selector:
+    app: canary-deployment
+  type: ClusterIP

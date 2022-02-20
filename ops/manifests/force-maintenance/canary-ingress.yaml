@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: canary-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"   
+    ingress.kubernetes.io/force-hsts: "true"               
+    ingress.kubernetes.io/hsts-max-age: "15724800"         
+    ingress.kubernetes.io/hsts-include-subdomains: "true"  
+    ingress.kubernetes.io/browser-xss-filter: "true"
+    ingress.kubernetes.io/frame-deny: "true"               
+    ingress.kubernetes.io/content-type-nosniff: "true"     
+    ingress.kubernetes.io/referrer-policy: "no-referrer"   
+    ingress.kubernetes.io/custom-response-headers: |       
+      Server: Incognito    
+spec:
+  ingressClassName: "nginx-asksven-io"
+  rules:
+  - host: maintenance.asksven.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: canary-service
+            port: 
+              number: 80          
+        pathType: Prefix        
+        path: /

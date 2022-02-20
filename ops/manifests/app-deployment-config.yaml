@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-deployment-config
+data:
+  index.html: |
+    <head/>
+    <body>
+        <h1>This is v1</h1>
+    </body>

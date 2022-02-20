@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: canary-deployment-config
+data:
+  index.html: |
+    <head/>
+    <body>
+        <h1>This is v2</h1>
+    </body>

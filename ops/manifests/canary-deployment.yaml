@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: canary-deployment
+  name: canary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: canary-deployment
+  template:
+    metadata:
+      labels:
+        app: canary-deployment
+    spec:
+      containers:
+      - image: nginx:1.21.6
+        imagePullPolicy: Always
+        name: canary-deployment
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - name: index-html
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+      volumes:
+      - name: index-html
+        configMap:
+          name: canary-deployment-config
+      

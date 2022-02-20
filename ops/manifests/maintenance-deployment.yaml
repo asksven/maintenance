@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: maintenance-deployment
+  name: maintenance-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintenance-deployment
+  template:
+    metadata:
+      labels:
+        app: maintenance-deployment
+    spec:
+      containers:
+      - image: nginx:1.21.6
+        imagePullPolicy: Always
+        name: maintenance-deployment
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - name: index-html
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+      volumes:
+      - name: index-html
+        configMap:
+          name: maintenance-deployment-config
+      
